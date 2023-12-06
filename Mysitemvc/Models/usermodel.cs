@@ -1,6 +1,6 @@
 ﻿namespace Mysitemvc.Models
 {
-    //class for Usermodel UserName & Password
+    //class for Usermodel UserName & Password class
     public class Usermodel
     {
         public int Id { get; set; }
