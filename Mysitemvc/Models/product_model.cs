@@ -19,5 +19,9 @@ namespace Mysitemvc.Models
             this.Price = value3;
             this.Description = value4;
         }
+        public product_model()
+        {
+
+        }
     }
 }

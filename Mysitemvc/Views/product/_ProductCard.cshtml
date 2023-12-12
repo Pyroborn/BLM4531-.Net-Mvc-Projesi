@@ -1,0 +1,21 @@
+﻿@model Mysitemvc.Models.product_model
+
+@{
+    var s = Model.Name;
+    var firstword = s.IndexOf(" ") > -1 ? s.Substring(0, s.IndexOf(" ")) : s;
+}
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="..."> @*tam burda 4d 4te resimlerle Model.id bağlı o işi halledince buraya*@
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Html.DisplayFor(m => Model.Price)</p>
+        <p class="card-text">
+            @Model.Description
+            <a href="/product/showDetails/@Model.Id" class="btn btn-primary">Show Details</a>
+            <a href="/product/showEdit/@Model.Id" class="btn btn-warning">Edit</a>
+            <a href="/product/showDelete/@Model.Id" class="btn btn-danger">Delete</a>
+            <button value="@Model.Id" type="button" class="btn btn-primary edit-product-button" data-toggle="modal" data-target="#exampleModal">
+                modal edit
+            </button>
+    </div>
+</div>

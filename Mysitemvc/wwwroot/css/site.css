@@ -1,3 +1,14 @@
+header {
+    border: 3px dashed red;
+}
+main {
+    border: 3px dashed green;
+}
+
+footer {
+    border: 3px dashed orange;
+}
+
 html {
   font-size: 14px;
 }
