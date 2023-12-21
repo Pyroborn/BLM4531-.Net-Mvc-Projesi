@@ -11,26 +11,23 @@ namespace Mysitemvc.Controllers
             Db_ProductDao db_Productdao = new Db_ProductDao();
             return View(db_Productdao.GetAllProducts());
         }
-
         public IActionResult showDetails(int id) 
         {
             Db_ProductDao product = new Db_ProductDao();
             product_model foundProduct = product.GetProductById(id);
             return View(foundProduct);
         }
-
         public IActionResult ShowOneProductJSON(int id) 
         { 
             Db_ProductDao product = new Db_ProductDao();
             return Json(product.GetProductById(id));
         }
-        public IActionResult edit(int id)
+        public IActionResult Edit(int id)
         {
             Db_ProductDao product = new Db_ProductDao();
             product_model foundProduct = product.GetProductById(id);
             return View("ShowEdit", foundProduct);
         }
-
         public IActionResult ProcessEdit(product_model product)
         {
             Db_ProductDao products = new Db_ProductDao();
@@ -54,13 +51,17 @@ namespace Mysitemvc.Controllers
             return View();
             //form for insert like edit
         }
-        public IActionResult ProcessCreate() 
+        public IActionResult CreatePage () 
+        {
+            return View("CreateForm");
+        }
+        public IActionResult Create(product_model product) 
         {
             Db_ProductDao products = new Db_ProductDao();
-            //insert
+            products.Insert(product);
             return View("index", products.GetAllProducts());
         }
-        public IActionResult delete(int id) 
+        public IActionResult Delete(int id) 
         {
             Db_ProductDao products = new Db_ProductDao();
             product_model product = products.GetProductById(id);

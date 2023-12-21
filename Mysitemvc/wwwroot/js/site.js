@@ -1,7 +1,6 @@
 ﻿$(function () {
     console.log("document_ready");
-    $(document).on("click", ".edit-product-button", function ()
-    {
+    $(document).on("click", ".edit-product-button", function () {
         console.log("you just clicked diddnt you" + $(this).val());
         var productID = $(this).val();
         $.ajax({
@@ -17,8 +16,8 @@
                 $("#modal-input-price").val(data.price);
                 $("#modal-input-description").val(data.description);
             }
-        })
-    })
+        });
+    });
     $("#save-button").click(function () {
         var product = {
             "Id": $("#modal-input-id").val(),
@@ -27,17 +26,17 @@
             "Description": $("#modal-input-description").val(),
         };
         console.log("saved..");
-        console.log(Product);
+        console.log(product);
 
         // save updated in databse using controller
         $.ajax({
             type: 'json',
-            data: Product,
+            data: product,
             url: '/product/ProcessEditReturnPartial',
             success: function (data) {
                 console.log(data);
-                $("#card-number-" + Product.Id).html(data).hide().fadeIn(2000);
+                $("#card-number-" + product.Id).html(data).hide().fadeIn(2000);
             }
-        })
-    })
+        });
+    });
 });
