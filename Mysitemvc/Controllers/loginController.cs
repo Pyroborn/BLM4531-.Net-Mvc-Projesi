@@ -72,5 +72,10 @@ namespace Mysitemvc.Controllers
             users.Insert(user);
             return View("show_users", users.GetAllUsers());
         }
+        public  IActionResult user_cart() 
+        {
+            Db_ProductDao db_Productdao = new Db_ProductDao();
+            return View(db_Productdao.GetAllProducts());
+        }
     }
 }

@@ -35,7 +35,6 @@ namespace Mysitemvc.Services
             claims.Add(new Claim("UserName", user.UserName ?? string.Empty));
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             ClaimsPrincipal principal = new ClaimsPrincipal(claimsIdentity);
-            HttpContextAccessor.HttpContext?.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
             return usersDAO.FindUserByNameAndPassword(user);
         }
 

@@ -4,7 +4,24 @@ using RequiredAttribute = Microsoft.Build.Framework.RequiredAttribute;
 
 namespace Mysitemvc.Models
 {
-    //class for Usermodel UserName & Password class
+    public class UserProfile
+    {
+        [Key]
+        public int Id { get; set; }
+        public int UsermodelId { get; set; }
+        public virtual Usermodel User { get; set; }
+        public virtual ShoppingCart ShoppingCart { get; set; }
+    }
+
+    public class ShoppingCart
+    {
+        [Key]
+        public int Id { get; set; }
+        public int UserProfileId { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
+
+     
+    }
     public class Usermodel
     {
         
