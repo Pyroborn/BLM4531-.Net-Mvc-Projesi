@@ -1,26 +1,48 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Mysitemvc.Entities;
 using Mysitemvc.Models;
 using Mysitemvc.Services;
+using System.Security.Claims;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 namespace Mysitemvc.Controllers
+
 {
+
     public class loginController : Controller
     {
+        private readonly UsersDAO _usersDAO;
+        public loginController()
+        {
+            _usersDAO = new UsersDAO(); // Initialize your UsersDAO
+        }
+
+
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult ProcessLogin(Usermodel usermodel)
+        public IActionResult ProcessLogin(Usermodel user)
         {
-            SecurityService securityService = new SecurityService();
-            if(securityService.IsValid(usermodel))
+            if (_usersDAO.IsValid(user))
             {
-                return View("LoginSuccess", usermodel);
+                return RedirectToAction("Index", "Users");
             }
             else
             {
-                return View("LoginFailure", usermodel);
+                ModelState.AddModelError("", "Invalid credentials");
+                return View("Index");
             }
         }
+
+
+       
         public IActionResult register()
         {
             return View("register_form");
@@ -31,12 +53,15 @@ namespace Mysitemvc.Controllers
             user.Insert(users);
             return View("Index");
         }
+
+        
         public IActionResult show_users()
         {
             UsersDAO users = new UsersDAO();
             List<Usermodel> UserList = users.GetAllUsers();
             return View(UserList);
         }
+       
         public IActionResult Delete(int id)
         {
             UsersDAO users = new UsersDAO();
@@ -72,10 +97,9 @@ namespace Mysitemvc.Controllers
             users.Insert(user);
             return View("show_users", users.GetAllUsers());
         }
-        public  IActionResult user_cart() 
-        {
-            Db_ProductDao db_Productdao = new Db_ProductDao();
-            return View(db_Productdao.GetAllProducts());
-        }
+        
+
+        
+
     }
 }

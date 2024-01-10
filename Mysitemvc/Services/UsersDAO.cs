@@ -5,6 +5,8 @@ using System;
 using Mysitemvc.Models;
 using System.Data.SqlClient;
 using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using Mysitemvc.Services;
 
 namespace Mysitemvc.Services
 {
@@ -12,16 +14,49 @@ namespace Mysitemvc.Services
     {
         string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Test;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        
-        public bool FindUserByNameAndPassword(Usermodel user)
+        private readonly TokenValidationService _tokenValidationService;
+
+        public UsersDAO(TokenValidationService tokenValidationService)
         {
-            bool success = false;
+            _tokenValidationService = tokenValidationService;
+        }
+
+        public UsersDAO() // had to make this one
+        {
+        }
+
+        
+
+
+        private readonly UsersDAO _usersDAO;
+
+        public bool IsValid(Usermodel user)
+        {
+           var existingUser = GetUserbyId(user.Id);
+
+            if (existingUser != null )
+            {
+                var authenticatedUser = AuthenticateUser(user.UserName, user.Password);
+                return authenticatedUser != null; 
+            }
+
+            if (user == null || user.Locked)
+            {
+                return false;
+            }
+
+            return UsernameExists(user.UserName);
+        }
+
+        public Usermodel AuthenticateUser(string UserName, string Password)
+        {
+            Usermodel user = null;
             string sqlStatement = "SELECT * FROM dbo.Users WHERE username = @Username  AND password = @Password";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
-                command.Parameters.Add("@Username", System.Data.SqlDbType.VarChar, 40).Value = user.UserName;
-                command.Parameters.Add("@Password", System.Data.SqlDbType.VarChar, 40).Value = user.Password;
+                command.Parameters.Add("@Username", System.Data.SqlDbType.VarChar, 40).Value = UserName;
+                command.Parameters.Add("@Password", System.Data.SqlDbType.VarChar, 40).Value = Password;
 
                 //try catch to avoid crashes hopefully
                 try
@@ -30,15 +65,18 @@ namespace Mysitemvc.Services
                     SqlDataReader reader = command.ExecuteReader();
                     if(reader.HasRows)
                     {
-                        success = true;
+                        user = new Usermodel();
+                        user.UserName = reader["UserName"].ToString();
+                        user.Password = reader["Password"].ToString();
+                        string? vr = reader["Role"].ToString();
+                        user.Roles = vr.Split(',').ToList();
                     }
                 }catch(Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
             }
-
-                return success;
+            return user;
         }
 
         public int Insert(Usermodel user)
@@ -72,7 +110,7 @@ namespace Mysitemvc.Services
 
         }
 
-        private bool UsernameExists(string username)
+        public bool UsernameExists(string username)
         {
             string check = "SELECT COUNT(*) FROM dbo.Users WHERE UserName = @UserName";
 

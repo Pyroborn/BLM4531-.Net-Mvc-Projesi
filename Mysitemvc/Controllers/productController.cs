@@ -11,10 +11,15 @@ namespace Mysitemvc.Controllers
             Db_ProductDao db_Productdao = new Db_ProductDao();
             return View(db_Productdao.GetAllProducts());
         }
-        public IActionResult showDetails(int id) 
+        public IActionResult ShowDetails(int id) 
         {
             Db_ProductDao product = new Db_ProductDao();
             product_model foundProduct = product.GetProductById(id);
+            if (foundProduct == null)
+            {
+                return NotFound(); // or handle the case where the product is not found
+            }
+
             return View(foundProduct);
         }
         public IActionResult ShowOneProductJSON(int id) 

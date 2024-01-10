@@ -1,27 +1,30 @@
 ﻿@model Mysitemvc.Models.Usermodel
+<link rel="stylesheet" href="~/css/site.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <h4>Please enter your info</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="register_process">
+        <form asp-action="Create" method="post" class="needs-validation" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
+                <input asp-for="UserName" class="form-control" required />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" type="password" class="form-control" required />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label">Enter your password again please</label>
-                <input asp-for="Password" class="form-control" />
+                <label asp-for="Password" class="control-label">Confirm Password</label>
+                <input name="ConfirmPassword" type="password" class="form-control" required />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            @* bu kısıma ikinci şifre ile check yapan logical unit gelecek ve şifre örtülü olacak*@
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -33,3 +36,28 @@
     <a asp-action="Index">Back to Log-in</a>
 </div>
 
+<script>
+    // Custom validation to check if passwords match
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.querySelector('.needs-validation');
+
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            // Check if passwords match
+            var password = document.getElementById('Password').value;
+            var confirmPassword = document.getElementsByName('ConfirmPassword')[0].value;
+
+            if (password !== confirmPassword) {
+                document.getElementsByName('ConfirmPassword')[0].setCustomValidity('Passwords must match.');
+            } else {
+                document.getElementsByName('ConfirmPassword')[0].setCustomValidity('');
+            }
+
+            form.classList.add('was-validated');
+        }, false);
+    });
+</script>

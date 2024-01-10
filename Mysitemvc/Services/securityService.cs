@@ -13,30 +13,41 @@ namespace Mysitemvc.Services
 {
     public class SecurityService
     {
-        UsersDAO usersDAO = new UsersDAO();
+        //UsersDAO usersDAO = new UsersDAO();
         public SecurityService()
         { 
             
         }
 
         //connection to usersdao function
-        public bool IsValid(Usermodel user)
+        public ClaimsPrincipal? GetClaimsPrincipal(Usermodel user)
         {
             if (user == null)
             {
-                return false;
+                // Handle the case where the user is null (e.g., log, throw exception)
+                return null;
             }
-            if (user.Locked) 
+
+            if (user.Locked)
             {
-                return false;
+                // Handle the case where the user is locked (e.g., log, return null)
+                return null;
             }
+
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString( )));
-            claims.Add(new Claim("UserName", user.UserName ?? string.Empty));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+
+            if (!string.IsNullOrEmpty(user.UserName))
+            {
+                claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+
+            }
+
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            ClaimsPrincipal principal = new ClaimsPrincipal(claimsIdentity);
-            return usersDAO.FindUserByNameAndPassword(user);
+            return new ClaimsPrincipal(claimsIdentity);
         }
+
+       
 
     }
 }

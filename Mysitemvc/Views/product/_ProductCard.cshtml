@@ -4,18 +4,23 @@
     var s = Model.Name;
     var firstword = s.IndexOf(" ") > -1 ? s.Substring(0, s.IndexOf(" ")) : s;
 }
-<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="..."> @*tam burda 4d 4te resimlerle Model.id bağlı o işi halledince buraya*@
+<script src="/js/site.js"></script>
+
+
+<link rel="stylesheet" href="~/css/" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-o8e1u/RI3mlSHzRapwcm4N9l3ub4M+KOBfjsuRzH1U8=" crossorigin="anonymous"></script>
+@* bu scripte dikkat*@
+
+<div class="card" style="width: 18rem; background-color: lightgreen ;">
+    <img src="~/css/Images/@Model.ImageName" class="card-img-top" alt="..."> @*tam burda 4d 4te resimlerle Model.id bağlı o işi halledince buraya*@
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">@Html.DisplayFor(m => Model.Price)</p>
-        <p class="card-text">
-            @Model.Description
             <a href="/product/showDetails/@Model.Id" class="btn btn-primary">Show Details</a>
             <a href="/product/Delete/@Model.Id" class="btn btn-danger">Delete</a>
             <button value="@Model.Id" type="button" class="btn btn-primary edit-product-button" data-toggle="modal" data-target="#editModal">
                 modal edit
             </button>
-            <button value="@Model.Id" type="button" class="btn btn-primary add-to-cart-button" data-toggle="modal" data-target="#add-to-chart"> Add to cart </button>
+
     </div>
 </div>

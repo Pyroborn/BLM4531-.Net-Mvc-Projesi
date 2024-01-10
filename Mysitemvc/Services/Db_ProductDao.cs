@@ -1,4 +1,5 @@
-﻿using Mysitemvc.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Mysitemvc.Models;
 using System.Collections.Immutable;
 using System.Data.SqlClient;
 
@@ -8,6 +9,7 @@ namespace Mysitemvc.Services
     {
         private string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Test;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+        [Authorize(Roles = "Admin")]
         public int Delete(product_model product)
         {
             if (product == null)
@@ -36,6 +38,45 @@ namespace Mysitemvc.Services
                 return rowsAffected;
             }
         }
+
+        public void AddProductToShoppingCart(int userId, int productId)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Check if the user exists
+                    using (SqlCommand checkUserCommand = new SqlCommand("SELECT COUNT(*) FROM Usermodels WHERE UserId = @UserId", connection))
+                    {
+                        checkUserCommand.Parameters.AddWithValue("@UserId", userId);
+                        int userCount = (int)checkUserCommand.ExecuteScalar();
+
+                        if (userCount > 0)
+                        {
+                            // User exists, update the ShoppingCartItemIds
+                            using (SqlCommand updateCommand = new SqlCommand("UPDATE Usermodels SET ShoppingCartItemIds = CONCAT(ShoppingCartItemIds, ',', @ProductId) WHERE UserId = @UserId", connection))
+                            {
+                                updateCommand.Parameters.AddWithValue("@UserId", userId);
+                                updateCommand.Parameters.AddWithValue("@ProductId", productId);
+                                updateCommand.ExecuteNonQuery();
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Error Finding the User");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding product to shopping cart: {ex.Message}");
+                // Handle the exception as needed
+            }
+        }
+
 
         public List<product_model> GetAllProducts()
         {
@@ -71,7 +112,7 @@ namespace Mysitemvc.Services
 
         public product_model GetProductById(int id)
         {
-            product_model found_product = null;
+            product_model? found_product = null;
             string sqlStatement = "SELECT * FROM dbo.Products WHERE Id LIKE @Id";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

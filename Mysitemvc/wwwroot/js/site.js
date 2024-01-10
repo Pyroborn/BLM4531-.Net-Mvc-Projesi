@@ -4,7 +4,7 @@
         console.log("you just clicked diddnt you" + $(this).val());
         var productID = $(this).val();
         $.ajax({
-            type: 'Json',
+            type: 'POST', // was json type
             data: {
                 "id": productID
             },
@@ -18,6 +18,39 @@
             }
         });
     });
+
+    
+    function addToCart(productId) {
+        $.ajax({
+            type: 'POST',
+            url: '/Cart/AddToCart',
+            data: { productId: productId },
+            success: function (response) {
+                // Check if the addition to the cart was successful
+                if (response.success) {
+                    // Get the product details from the response
+                    var product = response.product;
+
+                    // Redirect to the details page
+                    console.log('Redirecting to details page...');
+                    window.location.href = '/product/showDetails/' + product.Id;
+                } else {
+                    // Handle the case where the addition to the cart failed
+                    console.error('Error adding product to cart:', response.error);
+                }
+            },
+            error: function (error) {
+                // Handle the case where the AJAX request itself fails
+                console.error('Error adding product to cart:', error);
+            }
+        });
+    }
+
+
+    
+    
+    
+
     $("#save-button").click(function () {
         var product = {
             "Id": $("#modal-input-id").val(),
@@ -30,7 +63,7 @@
 
         // save updated in databse using controller
         $.ajax({
-            type: 'json',
+            type: 'POST', //was json type
             data: product,
             url: '/product/ProcessEditReturnPartial',
             success: function (data) {

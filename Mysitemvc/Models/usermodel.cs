@@ -33,6 +33,10 @@ namespace Mysitemvc.Models
         [MaxLength(16)]
         public string? Password { get; set; }
         public bool Locked { get; set; }
+        public List<string>? Roles { get; set; }
+
+        public List<int> ShoppingCartItemIds { get; set; } = new List<int>();
+
 
         public Usermodel(int value1, string value2, string value3)
         {

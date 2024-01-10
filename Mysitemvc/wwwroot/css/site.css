@@ -1,12 +1,17 @@
 header {
-    border: 3px dashed red;
+    border: groove;
+    background-color: #e4f6b7;
+    width: 100%;
 }
 main {
-    border: 3px dashed green;
+    background-color: #e4f6b7;
+    width: 100%;
+    height: 100%;
 }
 
 footer {
-    border: 3px dashed orange;
+    background-color: #e4f6b7;
+    width: 100%;
 }
 
 html {
@@ -30,4 +35,222 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.card {
+    background-color: #131313;
+    margin: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    padding: 10px;
+    align-content: center;
+    width: 260px;
+    height: 250px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.btn-create-new {
+    background-color: #258cfb; 
+    color: #fff; 
+    border: none;
+}
+
+/* Inside your custom CSS file (styles.css) */
+/* Add general styling to the product details container */
+.product-details-container {
+    margin: 20px;
+}
+
+/* Style for the title */
+h4 {
+    color: #333; /* Dark text color */
+}
+
+/* Style for the details list */
+.row {
+    margin-bottom: 15px;
+}
+
+/* Style for the labels */
+.col-sm-2 {
+    font-weight: bold;
+}
+
+/* Style for the Back to List link */
+.back-to-list-link {
+    color: #007bff; /* Blue link color */
+}
+
+/* Style for the Add to Cart form */
+form {
+    margin-top: 20px;
+}
+
+/* Style for the submit button */
+input[type="submit"] {
+    background-color: #28a745; /* Green button color */
+    color: #fff; /* White text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* styles.css */
+
+/* styles.css */
+
+.product-details-container {
+    margin: 20px;
+}
+
+h4 {
+    color: #333;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff; /* Blue header color */
+    color: #fff; /* White text color */
+}
+
+.back-to-list-link {
+    color: #007bff;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="submit"] {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Add more styles as needed */
+
+.back-to-list-link {
+    color: #fff;
+}
+
+/* Style for the Back to List button */
+.back-to-list-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underlines from anchor element */
+    display: inline-block; /* Make it look like a button */
+}
+
+.hero-section {
+    background-image: url('path/to/your/hero-image.jpg'); /* Add a beautiful hero image */
+    background-size: cover;
+    background-position: center;
+    color: #131313;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+    .hero-content h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+
+    .hero-content p {
+        font-size: 1.2em;
+        margin-bottom: 40px;
+    }
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #131313;
+    background-color: #28a745; /* Green color for the button */
+    border-radius: 5px;
+}
+
+.btn-shop-now {
+    border: 2px solid #fff; /* White border for contrast */
+    margin-top: 20px;
+}
+
+.featured-products {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f8f9fa; /* Light gray background color */
+}
+
+    .featured-products h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+
+.footer-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #343a40; /* Dark background color for the footer */
+    color: #fff;
+}
+
+/* wwwroot/css/site.css */
+
+body {
+    padding-top: 20px;
+    background-color: #f8f9fa;
+}
+
+.table-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.action-links {
+    white-space: nowrap;
+}
+
+
+.details-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-label {
+    font-weight: bold;
+}
+
+.back-link {
+    color: #007bff;
 }

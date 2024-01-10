@@ -12,6 +12,8 @@ namespace Mysitemvc.Models
         public decimal Price { get; set; }
         public string Description { get; set; }
 
+        public string? ImageName => Name.ToLower().Replace(" ", "") + ".jpg";
+
         public product_model(int value1, string value2, decimal value3, string value4)
         {
             this.Id = value1;
@@ -22,6 +24,11 @@ namespace Mysitemvc.Models
         public product_model()
         {
 
+        }
+
+        internal product_model getProductbyid(int productId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

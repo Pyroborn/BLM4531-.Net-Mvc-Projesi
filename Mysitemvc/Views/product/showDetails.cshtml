@@ -1,36 +1,76 @@
 ﻿@model Mysitemvc.Models.product_model
 
-<div>
-    <h4>product_model</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="~/js/site.js"></script>
+
+<link rel="stylesheet" href="~/css/styles.css">
+
+<div class="product-details-container">
+    
+            <h4>product_model</h4>
+            <hr />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Id</th>
+                        <td>@Html.DisplayFor(model => model.Id)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td>@Html.DisplayFor(model => model.Name)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Price</th>
+                        <td>@Html.DisplayFor(model => model.Price)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>@Html.DisplayFor(model => model.Description)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+ |
+    <a asp-action="Index" class="back-to-list-button">Back to List</a>
+
+
+    <form method="post" action="@Url.Action("AddToCart", "Cart")">
+    <label for="quantityInput">Quantity:</label>
+    <input type = "number" name="Quantity" id="quantityInput" min="1" value="1">
+    <input type = "hidden" name="ProductId" value="@Model.Id">
+    <input type = "submit" value="Add to Cart" class="btn btn-success">
+    </form>
+   
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+@*@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#addToCartButton").click(function () {
+                var productId = @Model.Id; // Assuming Model.Id is the product ID
+                var quantity = $('#quantityInput').val();
+                addToCart(productId, quantity);
+            });
+
+            function addToCart(productId, quantity) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("AddToCart", "Cart")', // Assuming your action is in the CartController
+                    data: { ProductId: productId, Quantity: quantity }, // bu kısma dikkat
+                    success: function (response) {
+                        // Handle success (if needed)
+                        console.log('Product added to cart successfully!');
+                        window.location.href = '@Url.Action("ViewCart", "Cart")';
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // Handle error (if needed)
+                        console.error('Error adding product to cart:', textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+        >>>>cartcontrollerda redirection da düzeltilmeli bu parça için
+    </script>*@
+
