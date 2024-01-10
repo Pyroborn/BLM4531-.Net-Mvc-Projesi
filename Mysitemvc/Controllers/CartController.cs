@@ -22,7 +22,7 @@ namespace Mysitemvc.Controllers
         private readonly ShoppingCart cart;
         public CartController()
         {
-            cart = new ShoppingCart(); // Initialize the shopping cart
+            cart = new ShoppingCart(); 
         }
 
             public List<CartItem> GetCartItems()

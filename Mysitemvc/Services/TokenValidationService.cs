@@ -6,7 +6,7 @@ using System.Text;
 
 public class TokenValidationService
 {
-    private const string SecretKey = "your_secret_key"; // Replace with a secure secret key
+    private const string SecretKey = "your_secret_key"; 
     private static readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
 
     public bool ValidateToken(string token)

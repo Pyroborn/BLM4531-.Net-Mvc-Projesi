@@ -20,7 +20,7 @@ namespace Mysitemvc.Controllers
         private readonly UsersDAO _usersDAO;
         public loginController()
         {
-            _usersDAO = new UsersDAO(); // Initialize your UsersDAO
+            _usersDAO = new UsersDAO();
         }
 
 

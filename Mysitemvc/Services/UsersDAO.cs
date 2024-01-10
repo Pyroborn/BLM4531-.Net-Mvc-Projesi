@@ -205,7 +205,7 @@ namespace Mysitemvc.Services
             if (user == null)
             {
                 Console.WriteLine("Error: Product object is null.");
-                return 0; // or handle the situation accordingly
+                return 0; 
             }
             int rowsAffected = 0;
             string sqlStatement = "DELETE FROM dbo.Users WHERE Id = @Id";

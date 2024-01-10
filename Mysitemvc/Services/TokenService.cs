@@ -15,7 +15,7 @@ namespace Mysitemvc.Services
 
     public class TokenService
     {
-        private const string SecretKey = "59"; // Replace with a secure secret key
+        private const string SecretKey = "59"; 
         private static readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
 
         public static string GenerateToken(string username)
@@ -27,7 +27,7 @@ namespace Mysitemvc.Services
                 {
                 new Claim(ClaimTypes.Name, username)
             }),
-                Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
+                Expires = DateTime.UtcNow.AddHours(1), 
                 SigningCredentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256Signature)
             };
 

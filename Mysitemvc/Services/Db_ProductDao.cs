@@ -15,7 +15,7 @@ namespace Mysitemvc.Services
             if (product == null)
             {
                 Console.WriteLine("Error: Product object is null.");
-                return 0; // or handle the situation accordingly
+                return 0;
             }
             int rowsAffected = 0;
             string sqlStatement = "DELETE FROM dbo.Products WHERE Id = @Id";
@@ -47,7 +47,7 @@ namespace Mysitemvc.Services
                 {
                     connection.Open();
 
-                    // Check if the user exists
+           
                     using (SqlCommand checkUserCommand = new SqlCommand("SELECT COUNT(*) FROM Usermodels WHERE UserId = @UserId", connection))
                     {
                         checkUserCommand.Parameters.AddWithValue("@UserId", userId);
@@ -55,7 +55,7 @@ namespace Mysitemvc.Services
 
                         if (userCount > 0)
                         {
-                            // User exists, update the ShoppingCartItemIds
+                  
                             using (SqlCommand updateCommand = new SqlCommand("UPDATE Usermodels SET ShoppingCartItemIds = CONCAT(ShoppingCartItemIds, ',', @ProductId) WHERE UserId = @UserId", connection))
                             {
                                 updateCommand.Parameters.AddWithValue("@UserId", userId);
@@ -73,7 +73,7 @@ namespace Mysitemvc.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error adding product to shopping cart: {ex.Message}");
-                // Handle the exception as needed
+   
             }
         }
 

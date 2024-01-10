@@ -17,7 +17,7 @@ namespace Mysitemvc.Controllers
             product_model foundProduct = product.GetProductById(id);
             if (foundProduct == null)
             {
-                return NotFound(); // or handle the case where the product is not found
+                return NotFound(); 
             }
 
             return View(foundProduct);
@@ -54,7 +54,6 @@ namespace Mysitemvc.Controllers
         public IActionResult SearchForm() 
         {
             return View();
-            //form for insert like edit
         }
         public IActionResult CreatePage () 
         {

@@ -1,5 +1,5 @@
 ﻿using Mysitemvc.Models;
-//interface for basic operations
+
 namespace Mysitemvc.Services
 {
     public interface IProductDataService

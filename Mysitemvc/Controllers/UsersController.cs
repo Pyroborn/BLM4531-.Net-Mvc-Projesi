@@ -11,7 +11,7 @@ using Mysitemvc.Services;
 
             public UsersController(UsersDAO usersDAO)
             {
-                _usersDAO = usersDAO; // Initialize your UsersDAO using dependency injection
+                _usersDAO = usersDAO; 
             }
 
 
@@ -33,7 +33,7 @@ using Mysitemvc.Services;
           
                 HttpContext.Response.Cookies.Append("AuthToken", token);
                 return RedirectToAction("Dashboard");
-               // return Ok(new { Token = token });
+             
             }
             else
             {
@@ -44,7 +44,7 @@ using Mysitemvc.Services;
 
         public IActionResult Dashboard()
         {
-            // Action for the authenticated user's dashboard
+
             return View();
         }
 

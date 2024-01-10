@@ -45,32 +45,3 @@
 </div>
 
 
-@*@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $("#addToCartButton").click(function () {
-                var productId = @Model.Id; // Assuming Model.Id is the product ID
-                var quantity = $('#quantityInput').val();
-                addToCart(productId, quantity);
-            });
-
-            function addToCart(productId, quantity) {
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("AddToCart", "Cart")', // Assuming your action is in the CartController
-                    data: { ProductId: productId, Quantity: quantity }, // bu kısma dikkat
-                    success: function (response) {
-                        // Handle success (if needed)
-                        console.log('Product added to cart successfully!');
-                        window.location.href = '@Url.Action("ViewCart", "Cart")';
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        // Handle error (if needed)
-                        console.error('Error adding product to cart:', textStatus, errorThrown);
-                    }
-                });
-            }
-        });
-        >>>>cartcontrollerda redirection da düzeltilmeli bu parça için
-    </script>*@
-

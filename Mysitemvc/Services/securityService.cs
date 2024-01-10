@@ -13,24 +13,24 @@ namespace Mysitemvc.Services
 {
     public class SecurityService
     {
-        //UsersDAO usersDAO = new UsersDAO();
+    
         public SecurityService()
         { 
             
         }
 
-        //connection to usersdao function
+    
         public ClaimsPrincipal? GetClaimsPrincipal(Usermodel user)
         {
             if (user == null)
             {
-                // Handle the case where the user is null (e.g., log, throw exception)
+             
                 return null;
             }
 
             if (user.Locked)
             {
-                // Handle the case where the user is locked (e.g., log, return null)
+                
                 return null;
             }
 
