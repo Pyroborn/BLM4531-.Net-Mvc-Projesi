@@ -1,5 +1,54 @@
 ﻿@model List<CartItem>
 
+<style>
+    h2 {
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        color: #333; /* Set font color to black */
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    p {
+        font-size: 18px;
+        margin-top: 20px;
+        color: #333; /* Set font color to black */
+    }
+
+    button {
+        background-color: #28a745;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+    .empty-cart-message {
+        color: #999;
+    }
+</style>
+
 <h2>Your Shopping Cart</h2>
 
 @if (Model != null && Model.Any())
@@ -21,17 +70,17 @@
                     <td>@item.ProductId</td>
                     <td>@item.ProductName</td>
                     <td>@item.Quantity</td>
-                    <td>@item.ProductPrice</td>
-                    <td>@(item.Quantity * item.ProductPrice)</td>
+                    <td>@string.Format("{0:C}", item.ProductPrice)</td>
+                    <td>@string.Format("{0:C}", item.Quantity * item.ProductPrice)</td>
                 </tr>
             }
         </tbody>
     </table>
 
-    <p>Total Price: @Model.Sum(item => item.Quantity * item.ProductPrice)</p>
+    <p>Total Price: @string.Format("{0:C}", Model.Sum(item => item.Quantity * item.ProductPrice))</p>
     <button>Buy</button>
 }
 else
 {
-    <p>Your cart is empty.</p>
+    <p class="empty-cart-message">Your cart is empty.</p>
 }

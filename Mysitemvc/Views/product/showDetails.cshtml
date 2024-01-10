@@ -3,7 +3,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="~/js/site.js"></script>
 
-<link rel="stylesheet" href="~/css/styles.css">
+<link rel="stylesheet" href="~/css/site.css">
 
 <div class="product-details-container">
     
@@ -32,7 +32,7 @@
 
             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
  |
-    <a asp-action="Index" class="back-to-list-button">Back to List</a>
+    <a asp-action="Index" class="back-to-list-button">Go back</a>
 
 
     <form method="post" action="@Url.Action("AddToCart", "Cart")">
